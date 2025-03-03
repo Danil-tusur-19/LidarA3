@@ -1,4 +1,5 @@
 from pyrplidar import PyRPlidar
+import matplotlib.pyplot as plt
 import time
 import math
 
@@ -18,10 +19,11 @@ time.sleep(2)
 scan_generator = lidar.start_scan_express(4)
 
 for count, scan in enumerate(scan_generator()):
-    x.append(scan.distance * math.cos(math.radians(scan.angle)))
-    y.append(scan.distance * math.sin(math.radians(scan.angle)))
-    print(count, scan.angle, scan.distance)
-    if count == 250:
+
+    x.append(scan.distance * math.sin(math.radians(scan.angle)))
+    y.append(scan.distance * math.cos(math.radians(scan.angle)))
+    print(count, scan)
+    if count == 10000:
         lidar.stop()
         lidar.set_motor_pwm(0)
         lidar.disconnect()
@@ -31,14 +33,14 @@ for count, scan in enumerate(scan_generator()):
 print("Переведенные координаты по оси X:",x)
 print("Переведенные координаты по оси Y:",y)
 
-import numpy as np
-import matplotlib.pyplot as plt
-#from matplotlib.animation import FuncAnimation
 
 plt.figure()
 plt.scatter(x,y)
 
-plt.xlabel('Ось х')  # Подпись для оси х
-plt.ylabel('Ось y')  # Подпись для оси y
-plt.title('Первый график')  # Название
+plt.xlabel('Ось х')
+plt.ylabel('Ось y')
+plt.title('Облако точек')
+plt.pause(.1)
 plt.show()
+
+
