@@ -61,7 +61,7 @@ def update(frame):
         ax.set_ylim(-10000, 10000)
         ax.set_xlabel('Ось X')
         ax.set_ylabel('Ось Y')
-        ax.set_title('Облако точек (реальное время)')
+        ax.set_title('Облако точек')
 
 
 #остановка лидара при закрытии окна
